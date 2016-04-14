@@ -1,0 +1,22 @@
+galaxy_info:
+  author: FGtatsuro
+  description: Ansible role for android
+  license: MIT
+  min_ansible_version: 2.0
+
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+    - name: Darwin
+      versions:
+        - all
+
+  galaxy_tags:
+    - development
+    - osx
+    - alpine
+
+# dependencies: []
+dependencies:
+  - FGtatsuro.python-requirements

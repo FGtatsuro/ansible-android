@@ -1,0 +1,4 @@
+---
+# tasks file for android
+- name: Run specified tasks on current platform 
+  include: "{{ ansible_os_family }}.yml"

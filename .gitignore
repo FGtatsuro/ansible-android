@@ -1,0 +1,5 @@
+roles/*
+!roles/android
+
+# Ansible
+tests/*.retry
