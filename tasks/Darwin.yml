@@ -1,2 +1,4 @@
 ---
 # tasks file for android(On OSX)
+- name: Install Android SDK with Homebrew
+  homebrew: name=android-sdk update_homebrew=yes

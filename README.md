@@ -46,6 +46,13 @@ Local requirements are as follows.
 - Ansible (>= 2.0.0)
 - Docker (>= 1.10.1)
 
+Notes
+-----
+
+- On OSX, role variable `android_sdk_download_url` is ignored. This means that this role DOESN'T install specified version on OSX.
+  - Latest SDK is installed when no SDK is installed.
+  - If SDK is already installed before this role, this role DOESN'T overwrite it.
+
 License
 -------
 
