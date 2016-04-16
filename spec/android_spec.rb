@@ -1,17 +1,26 @@
 require "spec_helper_#{ENV['SPEC_TARGET_BACKEND']}"
 
-describe package('python-dev'), :if => ['debian', 'alpine'].include?(os[:family]) do
-  it { should be_installed }
+# On OSX, Homebrew creates proper symlinks automatically.
+describe command('android list target'), :if => os[:family] == 'darwin' do
+  its(:exit_status) { should eq 0 }
 end
 
-describe package('build-essential'), :if => os[:family] == 'debian' do
-  it { should be_installed }
+describe command('emulator -help-all'), :if => os[:family] == 'darwin'  do
+  its(:exit_status) { should eq 0 }
 end
 
-describe package('build-base'), :if => os[:family] == 'alpine' do
-  it { should be_installed }
+describe command('adb version'), :if => os[:family] == 'darwin' do
+  its(:exit_status) { should eq 0 }
 end
 
-describe command('which python') do
+describe command("#{ENV['ANDROID_HOME']}/tools/android list target"), :if => ['debian', 'alpine'].include?(os[:family]) do
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("#{ENV['ANDROID_HOME']}/tools/emulator -help-all"), :if => ['debian', 'alpine'].include?(os[:family]) do
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("#{ENV['ANDROID_HOME']}/platform-tools/adb version"), :if => ['debian', 'alpine'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
