@@ -1,0 +1,4 @@
+---
+- src: FGtatsuro.python-requirements
+- src: FGtatsuro.java
+- src: FGtatsuro.postfix

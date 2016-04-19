@@ -20,3 +20,4 @@ galaxy_info:
 # dependencies: []
 dependencies:
   - FGtatsuro.python-requirements
+  - FGtatsuro.java
