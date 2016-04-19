@@ -1,4 +1,27 @@
 ---
 # tasks file for android
-- name: Run specified tasks on current platform 
+- name: Run specified tasks on current platform
   include: "{{ ansible_os_family }}.yml"
+
+- name: Install ptyprocess for automation
+  pip: name=ptyprocess
+  register: pip_ptyprocess
+- name: Install Pexpect for automation
+  pip: name=pexpect
+  register: pip_pexpect
+- name: Check whether adb command exists
+  stat: path="{{ android_home }}/platform-tools/adb"
+  register: stat_adb_command
+  changed_when: no
+- name: Install platform tool
+  expect:
+    command: "{{ android_home }}/tools/android update sdk -a -u -t platform-tool"
+    responses:
+      "Do you accept the license": "y\r"
+  when: not stat_adb_command.stat.exists
+- name: Uninstall ptyprocess when it is newly installed on this role.
+  pip: name=ptyprocess state=absent
+  when: pip_ptyprocess.changed
+- name: Uninstall Pexpect when it is newly installed on this role.
+  pip: name=pexpect state=absent
+  when: pip_pexpect.changed
