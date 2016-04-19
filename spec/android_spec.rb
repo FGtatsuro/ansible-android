@@ -17,7 +17,7 @@ describe command("#{ENV['ANDROID_HOME']}/tools/android list target"), :if => ['d
   its(:exit_status) { should eq 0 }
 end
 
-describe command("#{ENV['ANDROID_HOME']}/tools/emulator -help-all"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe command("#{ENV['ANDROID_HOME']}/tools/emulator-x86 -help-all"), :if => ['debian', 'alpine'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
 
