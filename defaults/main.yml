@@ -1,2 +1,6 @@
 ---
 # defaults file for android
+android_home: "/opt/android"
+android_sdk_download_url: "http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
+android_sdk_tmppath: "/tmp/android_sdk.tgz"
+android_sdk_sha1: "725bb360f0f7d04eaccff5a2d57abdd49061326d"
