@@ -8,32 +8,5 @@
     - qemu-kvm
     - libfontconfig1
   become: yes
-- name: Download Android SDK archive
-  get_url: >
-    url="{{ android_sdk_download_url }}"
-    dest="{{ android_sdk_tmppath }}"
-    checksum="sha1:{{ android_sdk_sha1 }}"
-  register: get_url_sdk_archive
-- name: Check whether android command exists
-  stat: path="{{ android_home }}/tools/android"
-  register: stat_android_command
-  changed_when: no
-- name: Ensure android_home exists
-  file: path="{{ android_home }}" state="directory"
-  become: yes
-
-# NOTE: In This task, following warning message will be printed if 'warn' attribute isn't 'no'.
-# '[WARNING]: Consider using unarchive module rather than running tar'
-#
-# As this warning message says, unarchive module can handle file download with http/ftp.
-# But this module can't use checksum, thus it seems taht target file is always downloaded on playbook running.
-#
-# To avoid unnecessary download, I use get_url module.
-# In this case, unarchive module can't be used because this module can't handle file on provision target.
-# For this reason, I use command module with tar command as workaround.
-- name: Extract Android SDK into ANDROID_HOME
-  command: "tar xzf {{ android_sdk_tmppath }} -C {{ android_home }} --strip 1"
-  when: (not stat_android_command.stat.exists) or get_url_sdk_archive.changed
-  become: yes
-  args:
-    warn: False
+- name: Include Linux tasks for Android SDK
+  include: "Linux.yml"
