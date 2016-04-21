@@ -18,27 +18,27 @@ describe command('which aapt'), :if => os[:family] == 'darwin' do
 end
 
 # On Linux, we also check extra components.
-describe command("#{ENV['ANDROID_HOME']}/tools/android list target"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe command("#{ENV['ANDROID_HOME']}/tools/android list target"), :if => ['debian'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("#{ENV['ANDROID_HOME']}/tools/emulator-x86 -help-all"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe command("#{ENV['ANDROID_HOME']}/tools/emulator-x86 -help-all"), :if => ['debian'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("#{ENV['ANDROID_HOME']}/platform-tools/adb version"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe command("#{ENV['ANDROID_HOME']}/platform-tools/adb version"), :if => ['debian'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
 
-describe file("#{ENV['ANDROID_HOME']}/build-tools/23.0.1/aapt"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe file("#{ENV['ANDROID_HOME']}/build-tools/23.0.1/aapt"), :if => ['debian'].include?(os[:family]) do
   it { should exist }
 end
 
-describe file("#{ENV['ANDROID_HOME']}/extras/android/m2repository/source.properties"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe file("#{ENV['ANDROID_HOME']}/extras/android/m2repository/source.properties"), :if => ['debian'].include?(os[:family]) do
   it { should exist }
 end
 
-describe file("#{ENV['ANDROID_HOME']}/platforms/android-22/android.jar"), :if => ['debian', 'alpine'].include?(os[:family]) do
+describe file("#{ENV['ANDROID_HOME']}/platforms/android-22/android.jar"), :if => ['debian'].include?(os[:family]) do
   it { should exist }
 end
 
