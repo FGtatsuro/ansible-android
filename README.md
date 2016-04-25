@@ -19,8 +19,6 @@ Role Variables
 
 The variables we can use in this role.
 
-NOTE: All variables are valid on only Linux. On OSX, they aren't used.
-
 |name|description|type|default|
 |---|---|---|---|
 |android_home|Home directory of Android.<br>You should also set this value as environment `ANDROID_HOME`.|str|/opt/android|
@@ -64,6 +62,9 @@ Notes
 - On OSX, role variable `android_sdk_download_url` is ignored. This means that this role DOESN'T install specified version on OSX.
   - Latest SDK is installed when no SDK is installed.
   - If SDK is already installed before this role, this role DOESN'T overwrite it.
+
+- On OSX, role variable `android_home` must be overwritten by path Homebrew installs Android SDK.
+  - In default, `/usr/local/opt/android-sdk` will be used.
 
 License
 -------
