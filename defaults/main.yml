@@ -6,5 +6,4 @@ android_sdk_sha1: "725bb360f0f7d04eaccff5a2d57abdd49061326d"
 android_sdk_download_tmppath: "/tmp/android_sdk.tgz"
 android_sdk_update_timeout: 120
 android_extra_components_lockpath: "/tmp/ansible_android_extra_components.lock"
-# Optional variables
-#android_extra_components
+android_extra_components: []

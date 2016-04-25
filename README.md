@@ -29,7 +29,7 @@ NOTE: All variables are valid on only Linux. On OSX, they aren't used.
 |android_sdk_download_tmppath|Path downloaded Android SDK archive is put temporary.|str|/tmp/android_sdk.tgz|
 |android_sdk_update_timeout|If the time of SDK components installation(with `android update sdk`) exceeds this value,<br>correspond tasks are failed.|int|120|
 |android_extra_components_lockpath|Path of file created after extra components are installed.<br>Playbook skips correspond tasks if this file exists.|str|/tmp/ansible_android_extra_components.lock|
-|android_extra_components|Extra components installed by this role.<br>This role installs `platform-tools` and components of this value.|list|It isn't defined in default. No extra component is installed.|
+|android_extra_components|Extra components installed by this role.<br>This role installs `platform-tools` and components of this value.|list|Empty list. No extra component is installed.|
 
 Role Dependencies
 -----------------

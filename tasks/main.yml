@@ -35,7 +35,7 @@
     with_items: "{{ android_extra_components }}"
   - name: Create lock file for extra components
     file: path="{{ android_extra_components_lockpath }}" state="touch"
-  when: (android_extra_components is defined) and
+  when: (android_extra_components|length != 0) and
         (not stat_extra_components_lockpath.stat.exists)
 - name: Uninstall ptyprocess when it is newly installed on this role.
   pip: name=ptyprocess state=absent
