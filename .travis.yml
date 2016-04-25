@@ -38,7 +38,7 @@ script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - >+
-    ansible-playbook playbooks/buildenv.yml -i tests/inventory -l ${TARGET}
+    ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET}
     --extra-vars="{'android_extra_components': [
     'extra-android-m2repository',
     'build-tools-23.0.1',
