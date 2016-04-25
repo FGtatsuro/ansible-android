@@ -5,6 +5,7 @@
     url="{{ android_sdk_download_url }}"
     dest="{{ android_sdk_download_tmppath }}"
     checksum="sha1:{{ android_sdk_sha1 }}"
+    timeout="{{ android_sdk_timeout }}"
   register: get_url_sdk_archive
 - name: Check whether android command exists
   stat: path="{{ android_home }}/tools/android"
