@@ -42,7 +42,7 @@ script:
     --extra-vars="{'android_extra_components': [
     'extra-android-m2repository',
     'build-tools-23.0.1',
-    'android-22',
+    'android-17',
     'sys-img-x86-android-17']}"
     -vvvv
   - bundle exec rake spec SPEC_TARGET=${TARGET}

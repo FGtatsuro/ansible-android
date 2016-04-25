@@ -38,7 +38,7 @@ describe file("#{ENV['ANDROID_HOME']}/extras/android/m2repository/source.propert
   it { should exist }
 end
 
-describe file("#{ENV['ANDROID_HOME']}/platforms/android-22/android.jar"), :if => ['debian'].include?(os[:family]) do
+describe file("#{ENV['ANDROID_HOME']}/platforms/android-17/android.jar"), :if => ['debian'].include?(os[:family]) do
   it { should exist }
 end
 
