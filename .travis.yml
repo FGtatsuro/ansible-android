@@ -36,6 +36,8 @@ install:
   - bundle install
 
 script:
+  # Workaround for OSX on TravisCI
+  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - >+
