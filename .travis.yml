@@ -5,8 +5,8 @@ matrix:
     - os: osx
       language: generic
       env:
-        - TARGET=localhost
-        - EXTRA_VARS="{'android_extra_components': ['extra-android-m2repository','build-tools-23.0.1','android-17','sys-img-x86-android-17'], 'android_home': '/usr/local/opt/android-sdk'}"
+        - TARGET: "localhost"
+        - EXTRA_VARS: "{'android_extra_components': ['extra-android-m2repository','build-tools-23.0.1','android-17','sys-img-x86-android-17'], 'android_home': '/usr/local/opt/android-sdk'}"
     - os: linux
       dist: trusty
       language: python
@@ -22,9 +22,9 @@ matrix:
       after_script:
         - docker rm -f container
       env:
-        - TARGET=container
-        - IMAGE_NAME=fgtatsuro/infra-bridgehead:debian-jessie
-        - EXTRA_VARS="{'android_extra_components': ['extra-android-m2repository','build-tools-23.0.1','android-17','sys-img-x86-android-17']}"
+        - TARGET: "container"
+        - IMAGE_NAME: "fgtatsuro/infra-bridgehead:debian-jessie"
+        - EXTRA_VARS: "{'android_extra_components': ['extra-android-m2repository','build-tools-23.0.1','android-17','sys-img-x86-android-17']}"
 
 # This role needs sudo, thus we can't use the new container infrastructure
 # sudo: false
@@ -41,11 +41,7 @@ script:
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - >+
     ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET}
-    --extra-vars="{'android_extra_components': [
-    'extra-android-m2repository',
-    'build-tools-23.0.1',
-    'android-17',
-    'sys-img-x86-android-17']}"
+    --extra-vars=${EXTRA_VARS}
     -vvvv
   - bundle exec rake spec SPEC_TARGET=${TARGET}
 
