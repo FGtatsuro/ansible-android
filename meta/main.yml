@@ -15,8 +15,8 @@ galaxy_info:
   galaxy_tags:
     - development
     - osx
-    - alpine
 
 # dependencies: []
 dependencies:
   - FGtatsuro.python-requirements
+  - FGtatsuro.java

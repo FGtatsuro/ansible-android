@@ -5,7 +5,8 @@ matrix:
     - os: osx
       language: generic
       env:
-        - TARGET=localhost
+        - TARGET: "localhost"
+        - EXTRA_VARS: "android_home=/usr/local/opt/android-sdk"
     - os: linux
       dist: trusty
       language: python
@@ -21,25 +22,8 @@ matrix:
       after_script:
         - docker rm -f container
       env:
-        - TARGET=container
-        - IMAGE_NAME=fgtatsuro/infra-bridgehead:debian-jessie
-    - os: linux
-      dist: trusty
-      language: python
-      python: 2.7
-      services:
-        - docker
-      addons:
-        apt:
-          packages:
-          - python-pip
-      before_script:
-        - docker run -it -d --name container ${IMAGE_NAME} /bin/sh
-      after_script:
-        - docker rm -f container
-      env:
-        - TARGET=container
-        - IMAGE_NAME=fgtatsuro/infra-bridgehead:alpine-3.3
+        - TARGET: "container"
+        - IMAGE_NAME: "fgtatsuro/infra-bridgehead:debian-jessie"
 
 # This role needs sudo, thus we can't use the new container infrastructure
 # sudo: false
@@ -48,13 +32,18 @@ sudo: required
 install:
   - sudo pip install ansible
   # Resolve dependencies(When target role isn't installed via Ansible Galaxy, auto resolution of dependencies doesn't occur.)
-  - ansible-galaxy install FGtatsuro.python-requirements
+  - ansible-galaxy install -r role_requirements.yml
   - bundle install
 
 script:
+  # Workaround for OSX on TravisCI
+  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  - ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET} -vvvv
+  - >+
+    ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET}
+    --extra-vars="${EXTRA_VARS}"
+    -vvvv
   - bundle exec rake spec SPEC_TARGET=${TARGET}
 
 notifications:

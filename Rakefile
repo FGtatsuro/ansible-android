@@ -12,7 +12,8 @@ namespace :spec do
     },
     {
       :name     =>  'container',
-      :backend  =>  'docker' 
+      :backend  =>  'docker',
+      :android_home =>  '/opt/android',
     }
   ]
   if ENV['SPEC_TARGET'] then
@@ -28,6 +29,7 @@ namespace :spec do
     RSpec::Core::RakeTask.new(host[:name].to_sym) do |t|
       ENV['TARGET_HOST'] = host[:name]
       ENV['SPEC_TARGET_BACKEND'] = host[:backend]
+      ENV['ANDROID_HOME'] = host[:android_home] || nil
       t.pattern = "spec/android_spec.rb"
     end
   end

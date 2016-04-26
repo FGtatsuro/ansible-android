@@ -1,4 +1,49 @@
 ---
 # tasks file for android
-- name: Run specified tasks on current platform 
+- name: Run specified tasks on current platform
   include: "{{ ansible_os_family }}.yml"
+
+- name: Install ptyprocess for automation
+  pip: name=ptyprocess
+  register: pip_ptyprocess
+  become: yes
+- name: Install Pexpect for automation
+  pip: name=pexpect
+  register: pip_pexpect
+  become: yes
+- name: Check whether adb command exists
+  stat: path="{{ android_home }}/platform-tools/adb"
+  register: stat_adb_command
+  changed_when: no
+- name: Install platform tool
+  expect:
+    command: "{{ android_home }}/tools/android update sdk -a -u -t platform-tool"
+    responses:
+      "Do you accept the license": "y\r"
+    timeout: "{{ android_sdk_timeout }}"
+  when: not stat_adb_command.stat.exists
+
+- name: Check whether lock file for extra components exists
+  stat: path="{{ android_extra_components_lockpath }}"
+  register: stat_extra_components_lockpath
+  changed_when: no
+- block:
+  - name: Install extra components
+    expect:
+      command: "{{ android_home }}/tools/android update sdk -a -u -t {{ item }}"
+      responses:
+        "Do you accept the license": "y\r"
+      timeout: "{{ android_sdk_timeout }}"
+    with_items: "{{ android_extra_components }}"
+  - name: Create lock file for extra components
+    file: path="{{ android_extra_components_lockpath }}" state="touch"
+  when: (android_extra_components|length != 0) and
+        (not stat_extra_components_lockpath.stat.exists)
+- name: Uninstall ptyprocess when it is newly installed on this role.
+  pip: name=ptyprocess state=absent
+  when: pip_ptyprocess.changed
+  become: yes
+- name: Uninstall Pexpect when it is newly installed on this role.
+  pip: name=pexpect state=absent
+  when: pip_pexpect.changed
+  become: yes

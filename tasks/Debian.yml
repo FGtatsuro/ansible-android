@@ -1,2 +1,12 @@
 ---
 # tasks file for android(On Debian family)
+- name: Install requirements for Android
+  apt: name={{ item }} update_cache=yes cache_valid_time=3600 install_recommends=no
+  with_items:
+    - lib32z1
+    - lib32stdc++6
+    - qemu-kvm
+    - libfontconfig1
+  become: yes
+- name: Include Linux tasks for Android SDK
+  include: "Linux.yml"
