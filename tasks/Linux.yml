@@ -11,6 +11,13 @@
   stat: path="{{ android_home }}/tools/android"
   register: stat_android_command
   changed_when: no
+- block:
+  - name: Clear existing android_home if re-install is needed
+    file: path="{{ android_home }}" state="absent"
+  - name: Clear lock file for extra components if re-install is needed
+    file: path="{{ android_extra_components_lockpath }}" state="absent"
+  become: yes
+  when: stat_android_command.stat.exists and get_url_sdk_archive.changed
 - name: Ensure android_home exists
   file: path="{{ android_home }}" state="directory"
   become: yes
@@ -24,7 +31,7 @@
 # To avoid unnecessary download, I use get_url module.
 # In this case, unarchive module can't be used because this module can't handle file on provision target.
 # For this reason, I use command module with tar command as workaround.
-- name: Extract Android SDK into ANDROID_HOME
+- name: Extract Android SDK into android_home
   command: "tar xzf {{ android_sdk_download_tmppath }} -C {{ android_home }} --strip 1"
   when: (not stat_android_command.stat.exists) or get_url_sdk_archive.changed
   become: yes

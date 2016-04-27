@@ -66,6 +66,9 @@ Notes
 - On OSX, role variable `android_home` must be overwritten by path Homebrew installs Android SDK.
   - In default, `/usr/local/opt/android-sdk` will be used.
 
+- On Debian, SDK and related tools are re-installed when new Android SDK is given via `android_sdk_download_url` and `android_sdk_sha1`.
+  - In this case, previous installed components in `android_home` are REMOVED. You should be careful!
+
 License
 -------
 

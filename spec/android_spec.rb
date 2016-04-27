@@ -45,3 +45,8 @@ end
 describe file("#{ENV['ANDROID_HOME']}/system-images/android-17/default/x86/system.img"), :if => ['debian', 'alpine'].include?(os[:family]) do
   it { should exist }
 end
+
+# Check re-install: re-install removes previous installed components.
+describe file("#{ENV['ANDROID_HOME']}/platforms/android-22/android.jar"), :if => ['debian'].include?(os[:family]) do
+  it { should_not exist }
+end
