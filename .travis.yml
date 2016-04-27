@@ -40,6 +40,11 @@ script:
   - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  # Check re-install
+  - >+
+    ansible-playbook tests/pre_install.yml -i tests/inventory -l ${TARGET}
+    --extra-vars="${EXTRA_VARS}"
+    -vvvv
   - >+
     ansible-playbook tests/test.yml -i tests/inventory -l ${TARGET}
     --extra-vars="${EXTRA_VARS}"
