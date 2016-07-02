@@ -19,7 +19,7 @@
   become: yes
   when: stat_android_command.stat.exists and get_url_sdk_archive.changed
 - name: Ensure android_home exists
-  file: path="{{ android_home }}" state="directory"
+  file: path="{{ android_home }}" state="directory" mode=0755
   become: yes
 
 # NOTE: In This task, following warning message will be printed if 'warn' attribute isn't 'no'.
