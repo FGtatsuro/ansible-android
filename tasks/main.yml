@@ -14,10 +14,14 @@
 
 - block:
   - name: Install ptyprocess for automation
-    pip: name=ptyprocess
+    pip:
+      name: ptyprocess
+      executable: "{{ android_extra_components_pip_executable }}"
     register: pip_ptyprocess
   - name: Install Pexpect for automation
-    pip: name=pexpect
+    pip:
+      name: pexpect
+      executable: "{{ android_extra_components_pip_executable }}"
     register: pip_pexpect
   become: yes
   when: (not stat_adb_command.stat.exists) or
@@ -43,10 +47,16 @@
     file: path="{{ android_extra_components_lockpath }}" state="touch"
   when: (android_extra_components|length != 0) and (not stat_extra_components_lockpath.stat.exists)
 - name: Uninstall ptyprocess when it is newly installed on this role.
-  pip: name=ptyprocess state=absent
+  pip:
+    name: ptyprocess
+    state: absent
+    executable: "{{ android_extra_components_pip_executable }}"
   when: pip_ptyprocess is defined and pip_ptyprocess.changed
   become: yes
 - name: Uninstall Pexpect when it is newly installed on this role.
-  pip: name=pexpect state=absent
+  pip:
+    name: pexpect
+    state: absent
+    executable: "{{ android_extra_components_pip_executable }}"
   when: pip_pexpect is defined and pip_pexpect.changed
   become: yes

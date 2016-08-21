@@ -7,3 +7,4 @@ android_sdk_download_tmppath: "/tmp/android_sdk.tgz"
 android_sdk_timeout: 120
 android_extra_components_lockpath: "/tmp/ansible_android_extra_components.lock"
 android_extra_components: []
+android_extra_components_pip_executable: null
