@@ -22,8 +22,6 @@
   file:
     path: "{{ android_home }}"
     state: "directory"
-    mode: "0755"
-    recurse: yes
   become: yes
 
 # NOTE: In This task, following warning message will be printed if 'warn' attribute isn't 'no'.
@@ -41,3 +39,10 @@
   become: yes
   args:
     warn: False
+- name: Add executable flags to android_home and contents under it
+  file:
+    path: "{{ android_home }}"
+    state: "directory"
+    mode: "0755"
+    recurse: yes
+  become: yes
