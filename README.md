@@ -28,7 +28,7 @@ The variables we can use in this role.
 |android_sdk_timeout|If the time of Android SDK/related components installation exceeds this value,<br>correspond tasks are failed.|int|120|
 |android_extra_components_lockpath|Path of file created after extra components are installed.<br>Playbook skips correspond tasks if this file exists.|str|/tmp/ansible_android_extra_components.lock|
 |android_extra_components|Extra components installed by this role.<br>This role installs `platform-tools` and components of this value.|list|Empty list. No extra component is installed.|
-|android_extra_components_pip_executable|Specified path of pip to install python libraries which is needed to install `android_extra_components` automatically. <br> If it is null, pip which Ansible finds automatically is used.|str|null|
+|android_extra_components_pip_executable|Specified path of pip to install python libraries which are needed to install `android_extra_components` automatically. <br> If it is null, pip which Ansible finds automatically is used.|str|null|
 
 Role Dependencies
 -----------------
