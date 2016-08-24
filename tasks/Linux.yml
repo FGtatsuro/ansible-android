@@ -19,7 +19,9 @@
   become: yes
   when: stat_android_command.stat.exists and get_url_sdk_archive.changed
 - name: Ensure android_home exists
-  file: path="{{ android_home }}" state="directory" mode=0755
+  file:
+    path: "{{ android_home }}"
+    state: "directory"
   become: yes
 
 # NOTE: In This task, following warning message will be printed if 'warn' attribute isn't 'no'.
@@ -32,8 +34,15 @@
 # In this case, unarchive module can't be used because this module can't handle file on provision target.
 # For this reason, I use command module with tar command as workaround.
 - name: Extract Android SDK into android_home
-  command: "tar xzf {{ android_sdk_download_tmppath }} -C {{ android_home }} --strip 1"
+  command: "tar --no-same-permissions --no-same-owner -xzf {{ android_sdk_download_tmppath }} -C {{ android_home }} --strip 1"
   when: (not stat_android_command.stat.exists) or get_url_sdk_archive.changed
   become: yes
   args:
     warn: False
+- name: Add executable flags to android_home and contents under it
+  file:
+    path: "{{ android_home }}"
+    state: "directory"
+    mode: "0755"
+    recurse: yes
+  become: yes
