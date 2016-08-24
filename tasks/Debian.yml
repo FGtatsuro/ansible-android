@@ -7,6 +7,7 @@
     - lib32stdc++6
     - qemu-kvm
     - libfontconfig1
+    - file
   become: yes
 - name: Include Linux tasks for Android SDK
   include: "Linux.yml"
