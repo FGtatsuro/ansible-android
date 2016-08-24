@@ -17,6 +17,19 @@ describe command('which aapt'), :if => os[:family] == 'darwin' do
   its(:exit_status) { should eq 0 }
 end
 
+[
+  "tools/android",
+  "tools/emulator-x86",
+  "platform-tools/adb"
+].each do |content|
+  describe file("#{ENV['ANDROID_HOME']}/#{content}"), :if => ['debian'].include?(os[:family]) do
+    it { should exist }
+    it { should be_mode 755 }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+  end
+end
+
 # On Linux, we also check extra components.
 describe command("#{ENV['ANDROID_HOME']}/tools/android list target"), :if => ['debian'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
