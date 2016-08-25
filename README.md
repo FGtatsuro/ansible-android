@@ -29,6 +29,7 @@ The variables we can use in this role.
 |android_extra_components_lockpath|Path of file created after extra components are installed.<br>Playbook skips correspond tasks if this file exists.|str|/tmp/ansible_android_extra_components.lock|
 |android_extra_components|Extra components installed by this role.<br>This role installs `platform-tools` and components of this value.|list|Empty list. No extra component is installed.|
 |android_extra_components_pip_executable|Specified path of pip to install python libraries which are needed to install `android_extra_components` automatically. <br> If it is null, pip which Ansible finds automatically is used.|str|null|
+|android_emulator_kvm_user|If this value is defined, setup for Android emulator with KVM is executed. <br>- `/dev/kvm` is created by `mknod` command. <br>- The user of this variable is appended to group `kvm`. And the members of this group can read/write `/dev/kvm`.|str|It isn't defined in default.|
 
 Role Dependencies
 -----------------
@@ -69,6 +70,10 @@ Notes
 
 - On Debian, SDK and related tools are re-installed when new Android SDK is given via `android_sdk_download_url` and `android_sdk_sha1`.
   - In this case, previous installed components in `android_home` are REMOVED. You should be careful!
+
+- About `android_emulator_kvm_user`,
+  - On OSX, this is ignored.
+  - If this variable is used for Docker, `MKNOD` capability is required. (Ref. https://docs.docker.com/engine/reference/run/#/runtime-privilege-and-linux-capabilities)
 
 License
 -------
