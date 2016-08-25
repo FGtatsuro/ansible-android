@@ -63,3 +63,15 @@ end
 describe file("#{ENV['ANDROID_HOME']}/platforms/android-22/android.jar"), :if => ['debian'].include?(os[:family]) do
   it { should_not exist }
 end
+
+describe file('/dev/kvm'), :if => ['debian'].include?(os[:family]) do
+  it { should be_character_device }
+  it { should be_mode 664 }
+  it { should be_owned_by 'root' }
+  it { should be_grouped_into 'kvm' }
+end
+
+# user 'testuser' is created before spec testing on Travis.
+describe user('testuser'), :if => ['debian'].include?(os[:family]) do
+  it { should belong_to_group 'kvm' }
+end
