@@ -39,9 +39,9 @@
   become: yes
   args:
     warn: False
-- name: Add executable flags to android_home and contents under it
+- name: Add executable flags to binaries under tools directory
   file:
-    path: "{{ android_home }}"
+    path: "{{ android_home }}/tools"
     state: "directory"
     mode: "0755"
     recurse: yes
