@@ -23,12 +23,14 @@ matrix:
           packages:
           - python-pip
       before_script:
-        - docker run -it -d --name container ${IMAGE_NAME} /bin/sh
+        - docker run --cap-add=MKNOD -it -d --name container ${IMAGE_NAME} /bin/sh
+        - docker exec -it container useradd testuser
       after_script:
         - docker rm -f container
       env:
         - TARGET: "container"
         - IMAGE_NAME: "fgtatsuro/infra-bridgehead:debian-jessie"
+        - EXTRA_VARS: "android_emulator_kvm_user=testuser"
 
 # This role needs sudo, thus we can't use the new container infrastructure
 # sudo: false
