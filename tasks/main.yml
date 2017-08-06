@@ -29,7 +29,7 @@
 
 - name: Install platform tool
   expect:
-    command: "{{ android_home }}/tools/android update sdk -a -u -t platform-tool"
+    command: "{{ android_home }}/tools/bin/sdkmanager platform-tool"
     responses:
       "Do you accept the license": "y\r"
     timeout: "{{ android_sdk_timeout }}"
@@ -38,7 +38,7 @@
 - block:
   - name: Install extra components
     expect:
-      command: "{{ android_home }}/tools/android update sdk -a -u -t {{ item }}"
+      command: "{{ android_home }}/tools/bin/sdkmanager {{ item }}"
       responses:
         "Do you accept the license": "y\r"
       timeout: "{{ android_sdk_timeout }}"
