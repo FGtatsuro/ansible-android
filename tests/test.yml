@@ -4,7 +4,7 @@
   roles:
     - role: android
       android_extra_components:
-        - extra-android-m2repository
-        - build-tools-23.0.1
-        - android-17
-        - sys-img-x86-android-17
+        - extras;android;m2repository
+        - build-tools;23.0.1
+        - platforms;android-17
+        - system-images;android-17;default;x86
