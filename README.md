@@ -70,6 +70,7 @@ Notes
 
 - On Debian, SDK and related tools are re-installed when new Android SDK is given via `android_sdk_download_url` and `android_sdk_sha256`.
   - In this case, previous installed components in `android_home` are REMOVED. You should be careful!
+  - This role DOES NOT support old version of SDK not including `sdkmanager` command. 
 
 - About `android_emulator_kvm_user`,
   - On OSX, this is ignored.
