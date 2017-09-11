@@ -34,7 +34,7 @@
 # In this case, unarchive module can't be used because this module can't handle file on provision target.
 # For this reason, I use command module with tar command as workaround.
 - name: Extract Android SDK into android_home
-  command: "tar --no-same-permissions --no-same-owner -xzf {{ android_sdk_download_tmppath }} -C {{ android_home }} --strip 1"
+  command: "unzip {{ android_sdk_download_tmppath }} -d {{ android_home }}"
   when: (not stat_android_command.stat.exists) or get_url_sdk_archive.changed
   become: yes
   args:
