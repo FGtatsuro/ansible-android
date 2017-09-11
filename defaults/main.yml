@@ -1,9 +1,9 @@
 ---
 # defaults file for android
 android_home: "/opt/android"
-android_sdk_download_url: "http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
-android_sdk_sha1: "725bb360f0f7d04eaccff5a2d57abdd49061326d"
-android_sdk_download_tmppath: "/tmp/android_sdk.tgz"
+android_sdk_download_url: "https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip"
+android_sdk_sha1: "444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0"
+android_sdk_download_tmppath: "/tmp/android_sdk.zip"
 android_sdk_timeout: 120
 android_extra_components_lockpath: "/tmp/ansible_android_extra_components.lock"
 android_extra_components: []
