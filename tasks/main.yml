@@ -27,6 +27,10 @@
   when: (not stat_adb_command.stat.exists) or
         ((android_extra_components|length != 0) and (not stat_extra_components_lockpath.stat.exists))
 
+- name: Create repositories.cfg
+  file:
+    path: "{{ ansible_env.HOME }}/.android/repositories.cfg"
+    state: file
 - name: Install platform tool
   expect:
     command: "{{ android_home }}/tools/bin/sdkmanager platform-tool"
