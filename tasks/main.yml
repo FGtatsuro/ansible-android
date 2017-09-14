@@ -33,7 +33,7 @@
     state: file
 - name: Install platform tool
   expect:
-    command: "{{ android_home }}/tools/bin/sdkmanager platform-tool"
+    command: "{{ android_home }}/tools/bin/sdkmanager platform-tools"
     responses:
       "Do you accept the license": "y\r"
     timeout: "{{ android_sdk_timeout }}"
