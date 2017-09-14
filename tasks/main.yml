@@ -36,6 +36,7 @@
     command: "{{ android_home }}/tools/bin/sdkmanager platform-tools"
     responses:
       "Do you accept the license": "y\r"
+      "Accept\\? \\(y/N\\)": "y\r"
     timeout: "{{ android_sdk_timeout }}"
   when: not stat_adb_command.stat.exists
 
@@ -45,6 +46,7 @@
       command: "{{ android_home }}/tools/bin/sdkmanager {{ item }}"
       responses:
         "Do you accept the license": "y\r"
+        "Accept\\? \\(y/N\\)": "y\r"
       timeout: "{{ android_sdk_timeout }}"
     with_items: "{{ android_extra_components }}"
   - name: Create lock file for extra components
