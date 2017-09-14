@@ -32,10 +32,15 @@
     path: "{{ ansible_env.HOME }}/.android/repositories.cfg"
   register: stat_repositories_cfg
   changed_when: no
-- name: Create repositories.cfg
-  file:
-    path: "{{ ansible_env.HOME }}/.android/repositories.cfg"
-    state: touch
+- block:
+  - name: Create .android directory
+    file:
+      path: "{{ ansible_env.HOME }}/.android"
+      state: directory
+  - name: Create repositories.cfg
+    file:
+      path: "{{ ansible_env.HOME }}/.android/repositories.cfg"
+      state: touch
   when: not stat_repositories_cfg.stat.exists
 - name: Install platform tool
   expect:
