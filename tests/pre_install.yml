@@ -5,5 +5,5 @@
     - role: android
       android_extra_components:
         - platforms;android-22
-      android_sdk_download_url: "http://dl.google.com/android/android-sdk_r24.3.4-linux.tgz"
-      android_sdk_sha1: "fb293d7bca42e05580be56b1adc22055d46603dd"
+      android_sdk_download_url: "https://dl.google.com/android/repository/sdk-tools-linux-3773319.zip"
+      android_sdk_sha256: "3c0be86876a7ed9cf0b8f55d02f05079507fe8be99e8f435b333b797ac598193"
