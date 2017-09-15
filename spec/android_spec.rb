@@ -19,7 +19,7 @@ end
 
 [
   "tools/android",
-  "tools/emulator-x86",
+  "tools/emulator",
   "platform-tools/adb"
 ].each do |content|
   describe file("#{ENV['ANDROID_HOME']}/#{content}"), :if => ['debian'].include?(os[:family]) do
@@ -35,7 +35,7 @@ describe command("#{ENV['ANDROID_HOME']}/tools/android list target"), :if => ['d
   its(:exit_status) { should eq 0 }
 end
 
-describe command("#{ENV['ANDROID_HOME']}/tools/emulator-x86 -help-all"), :if => ['debian'].include?(os[:family]) do
+describe command("#{ENV['ANDROID_HOME']}/tools/emulator -help-all"), :if => ['debian'].include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
 

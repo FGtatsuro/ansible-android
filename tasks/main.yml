@@ -27,20 +27,37 @@
   when: (not stat_adb_command.stat.exists) or
         ((android_extra_components|length != 0) and (not stat_extra_components_lockpath.stat.exists))
 
+- name: Check repositories.cfg
+  stat:
+    path: "{{ ansible_env.HOME }}/.android/repositories.cfg"
+  register: stat_repositories_cfg
+  changed_when: no
+- block:
+  - name: Create .android directory
+    file:
+      path: "{{ ansible_env.HOME }}/.android"
+      state: directory
+  - name: Create repositories.cfg
+    file:
+      path: "{{ ansible_env.HOME }}/.android/repositories.cfg"
+      state: touch
+  when: not stat_repositories_cfg.stat.exists
 - name: Install platform tool
   expect:
-    command: "{{ android_home }}/tools/android update sdk -a -u -t platform-tool"
+    command: "{{ android_home }}/tools/bin/sdkmanager platform-tools"
     responses:
       "Do you accept the license": "y\r"
+      "Accept\\? \\(y/N\\)": "y\r"
     timeout: "{{ android_sdk_timeout }}"
   when: not stat_adb_command.stat.exists
 
 - block:
   - name: Install extra components
     expect:
-      command: "{{ android_home }}/tools/android update sdk -a -u -t {{ item }}"
+      command: "{{ android_home }}/tools/bin/sdkmanager {{ item }}"
       responses:
         "Do you accept the license": "y\r"
+        "Accept\\? \\(y/N\\)": "y\r"
       timeout: "{{ android_sdk_timeout }}"
     with_items: "{{ android_extra_components }}"
   - name: Create lock file for extra components

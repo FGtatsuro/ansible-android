@@ -22,8 +22,8 @@ The variables we can use in this role.
 |name|description|type|default|
 |---|---|---|---|
 |android_home|Home directory of Android.<br>You should also set this value as environment `ANDROID_HOME`.|str|/opt/android|
-|android_sdk_download_url|Download URL of Android SDK archive.<br>Different version has different URL.|str|http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz|
-|android_sdk_sha1|SHA1 signature of Android SDK archive.<br>This is used for idempotency.|str|725bb360f0f7d04eaccff5a2d57abdd49061326d|
+|android_sdk_download_url|Download URL of Android SDK archive.<br>Different version has different URL.|str|https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip|
+|android_sdk_sha256|SHA1 signature of Android SDK archive.<br>This is used for idempotency.|str|444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0|
 |android_sdk_download_tmppath|Path downloaded Android SDK archive is put temporary.|str|/tmp/android_sdk.tgz|
 |android_sdk_timeout|If the time of Android SDK/related components installation exceeds this value,<br>correspond tasks are failed.|int|120|
 |android_extra_components_lockpath|Path of file created after extra components are installed.<br>Playbook skips correspond tasks if this file exists.|str|/tmp/ansible_android_extra_components.lock|
@@ -68,8 +68,9 @@ Notes
 - On OSX, role variable `android_home` must be overwritten by path Homebrew installs Android SDK.
   - In default, `/usr/local/share/android-sdk` will be used.
 
-- On Debian, SDK and related tools are re-installed when new Android SDK is given via `android_sdk_download_url` and `android_sdk_sha1`.
+- On Debian, SDK and related tools are re-installed when new Android SDK is given via `android_sdk_download_url` and `android_sdk_sha256`.
   - In this case, previous installed components in `android_home` are REMOVED. You should be careful!
+  - This role DOES NOT support old version of SDK not including `sdkmanager` command. 
 
 - About `android_emulator_kvm_user`,
   - On OSX, this is ignored.
