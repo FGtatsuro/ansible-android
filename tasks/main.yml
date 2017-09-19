@@ -1,5 +1,9 @@
 ---
 # tasks file for android
+#- debug:
+#    msg: 'Prototype for arbitrary Java role'
+#- include_role:
+#    name: "{{ android_dependent_java_role }}"
 - name: Run specified tasks on current platform
   include: "{{ ansible_os_family }}.yml"
 
