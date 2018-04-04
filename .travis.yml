@@ -8,6 +8,7 @@ matrix:
   include:
     - os: osx
       language: generic
+      osx_image: xcode8
       env:
         - TARGET: "localhost"
         - EXTRA_VARS: "android_home=/usr/local/share/android-sdk"
