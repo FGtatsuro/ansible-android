@@ -1,22 +1,5 @@
 require "spec_helper_#{ENV['SPEC_TARGET_BACKEND']}"
 
-# On OSX, Homebrew creates proper symlinks automatically.
-describe command('android list target'), :if => os[:family] == 'darwin' do
-  its(:exit_status) { should eq 0 }
-end
-
-describe command('emulator -help-all'), :if => os[:family] == 'darwin'  do
-  its(:exit_status) { should eq 0 }
-end
-
-describe command('adb version'), :if => os[:family] == 'darwin' do
-  its(:exit_status) { should eq 0 }
-end
-
-describe command('which aapt'), :if => os[:family] == 'darwin' do
-  its(:exit_status) { should eq 0 }
-end
-
 [
   "tools/android",
   "tools/emulator",
