@@ -7,3 +7,4 @@
         - platforms;android-22
       android_sdk_download_url: "https://dl.google.com/android/repository/sdk-tools-linux-3773319.zip"
       android_sdk_sha256: "3c0be86876a7ed9cf0b8f55d02f05079507fe8be99e8f435b333b797ac598193"
+      android_license_src_dir: '../tests/licenses/'
