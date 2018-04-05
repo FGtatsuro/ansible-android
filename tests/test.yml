@@ -8,3 +8,4 @@
         - build-tools;23.0.1
         - platforms;android-17
         - system-images;android-17;default;x86
+      android_license_src_dir: '../tests/licenses/'

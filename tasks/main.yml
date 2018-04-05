@@ -13,16 +13,15 @@
   changed_when: no
 
 - block:
-  - name: Install ptyprocess for automation
-    pip:
-      name: ptyprocess
-      executable: "{{ android_extra_components_pip_executable }}"
-    register: pip_ptyprocess
-  - name: Install Pexpect for automation
-    pip:
-      name: pexpect
-      executable: "{{ android_extra_components_pip_executable }}"
-    register: pip_pexpect
+  - name: Ensure a directory for licenses
+    file:
+      path: "{{ android_home }}/licenses"
+      state: 'directory'
+  - name: Copy license files
+    copy:
+      src: "{{ android_license_src_dir }}"
+      dest: "{{ android_home }}/licenses"
+    when: android_license_src_dir is defined
   become: yes
   when: (not stat_adb_command.stat.exists) or
         ((android_extra_components|length != 0) and (not stat_extra_components_lockpath.stat.exists))
@@ -43,37 +42,13 @@
       state: touch
   when: not stat_repositories_cfg.stat.exists
 - name: Install platform tool
-  expect:
-    command: "{{ android_home }}/tools/bin/sdkmanager platform-tools"
-    responses:
-      "Do you accept the license": "y\r"
-      "Accept\\? \\(y/N\\)": "y\r"
-    timeout: "{{ android_sdk_timeout }}"
+  command: "{{ android_home }}/tools/bin/sdkmanager platform-tools"
   when: not stat_adb_command.stat.exists
 
 - block:
   - name: Install extra components
-    expect:
-      command: "{{ android_home }}/tools/bin/sdkmanager {{ item }}"
-      responses:
-        "Do you accept the license": "y\r"
-        "Accept\\? \\(y/N\\)": "y\r"
-      timeout: "{{ android_sdk_timeout }}"
+    command: "{{ android_home }}/tools/bin/sdkmanager {{ item }}"
     with_items: "{{ android_extra_components }}"
   - name: Create lock file for extra components
     file: path="{{ android_extra_components_lockpath }}" state="touch"
   when: (android_extra_components|length != 0) and (not stat_extra_components_lockpath.stat.exists)
-- name: Uninstall ptyprocess when it is newly installed on this role.
-  pip:
-    name: ptyprocess
-    state: absent
-    executable: "{{ android_extra_components_pip_executable }}"
-  when: pip_ptyprocess is defined and pip_ptyprocess.changed
-  become: yes
-- name: Uninstall Pexpect when it is newly installed on this role.
-  pip:
-    name: pexpect
-    state: absent
-    executable: "{{ android_extra_components_pip_executable }}"
-  when: pip_pexpect is defined and pip_pexpect.changed
-  become: yes
